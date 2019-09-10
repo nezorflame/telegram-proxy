@@ -1,0 +1,20 @@
+[Unit]
+Description=SSL/SSH multiplexer
+After=network.target
+Requires=mtproxy.service
+After=mtproxy.service
+Documentation=man:sslh(8)
+
+[Service]
+EnvironmentFile=/etc/default/sslh
+ExecStart=/usr/sbin/sslh --foreground $DAEMON_OPTS
+KillMode=process
+CapabilityBoundingSet=CAP_NET_BIND_SERVICE CAP_NET_ADMIN CAP_SETGID CAP_SETUID
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=full
+ProtectHome=true
+User=YOUR_USER
+
+[Install]
+WantedBy=multi-user.target
